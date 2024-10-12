@@ -5,6 +5,7 @@ Projects Features
   4. Print list products
   5. Numbers formatt
   6. Order by products
+  7. Add and Update photo of the products (blob)
 
 For more inhancement of this project go to my youtube channel.
 
