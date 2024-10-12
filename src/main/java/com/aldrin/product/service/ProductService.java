@@ -68,7 +68,7 @@ public class ProductService {
     }
 
     public List<Product> findAll() {
-        return productRepository.findAllByOrderByNameAsc();
+        return productRepository.findAll();
     }
 
     public Product findById(Long id) {

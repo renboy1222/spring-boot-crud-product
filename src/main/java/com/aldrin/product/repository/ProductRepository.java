@@ -23,10 +23,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     
     Page<Product> findByNameContaining(String name, Pageable pageable);
     @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+            
     Page<Product> searchByName(String keyword, Pageable pageable);
     
-    List<Product> findAllByOrderByNameAsc();
-    
-    public Page<Product> findAllByOrderByNameAsc(Pageable pageable);
+
     
 }
