@@ -8,9 +8,8 @@ Projects Features
 
 For more inhancement of this project go to my youtube channel.
 
+===========================================================================
 
-
-============================================================================================================
 
 Screenshots of Projects
 
