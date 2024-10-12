@@ -1,0 +1,81 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/head :: head" />
+
+<body>
+    <div th:replace="commons/header-nav::navbar" />
+
+    <div th:replace="commons/side-bar::sidebar" />
+
+    <div class="container">
+        <!--Product contents-->
+        <div class="content">
+            <form action="#" th:action="@{/categories}" method="get">
+                <input type="text" name="keyword" placeholder="Search category" th:value="${keyword}">
+            </form>
+            <div class="button-group">
+                <a href="/categories/new" class="btn btn-green"><i class="fas fa-plus"> </i>Add New Category</a>
+            </div>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="category : ${categoryPage.content}">
+                        <td th:text="${category.id}"></td>
+                        <td th:text="${category.name}"></td>
+                        <td>
+                            <a class="btn btn-yellow" th:href="@{/categories/edit/{id}(id=${category.id})}"><i
+                                    class="fas fa-edit  xs"></i></a>
+                            <a class="btn btn-red" th:href="@{/categories/delete/{id}(id=${category.id})}"><i
+                                    class="fas fa-trash-can xs"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="button-group">
+                <span>Page <span th:text="${currentPage}"></span> of <span th:text="${totalPages}"></span></span>
+            </div>
+            <ul class="pagination">
+
+                <!-- Pagination Links -->
+                <div>
+                    <!-- First Page Link -->
+                    <a class="btn btn-light-gray" th:href="@{/products(page=1, size=${pageSize}, keyword=${keyword})}"
+                        th:if="${currentPage > 1}">First</a>
+
+                    <!-- Previous Page Link -->
+                    <a class="btn btn-light-gray"
+                        th:href="@{/products(page=${currentPage - 1}, size=${pageSize}, keyword=${keyword})}"
+                        th:if="${currentPage > 1}">Previous</a>
+
+                    <!-- Page Numbers -->
+                    <span th:each="pageNumber : ${pageNumbers}">
+                        <a class="btn btn-light-gray"
+                            th:href="@{/products(page=${pageNumber}, size=${pageSize}, keyword=${keyword})}"
+                            th:classappend="${pageNumber == currentPage} ? 'active'">
+                            <span th:text="${pageNumber}"></span>
+                        </a>
+                    </span>
+
+                    <!-- Next Page Link -->
+                    <a class="btn btn-light-gray"
+                        th:href="@{/products(page=${currentPage + 1}, size=${pageSize}, keyword=${keyword})}"
+                        th:if="${currentPage < totalPages}">Next</a>
+
+                    <!-- Last Page Link -->
+                    <a class="btn btn-light-gray"
+                        th:href="@{/products(page=${totalPages}, size=${pageSize}, keyword=${keyword})}"
+                        th:if="${currentPage < totalPages}">Last</a>
+                </div>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

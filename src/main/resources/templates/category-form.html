@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/head :: head" />
+
+<body>
+    <div th:replace="commons/header-nav::navbar" />
+
+
+    <div th:replace="commons/side-bar::sidebar" />
+
+    <div class="container">
+        <div class="content">
+            <h1 th:text="${category.id != null} ? 'Update Category' : 'Add New Category'"></h1>
+            <form action="#" th:action="@{/categories/save}" th:object="${category}" method="post">
+                <input type="hidden" th:field="*{id}" />
+                <div class="form-group">
+                    <label for="product-name">Category</label>
+                    <input type="text" id="name" th:field="*{name}" />
+                </div>
+                <button type="submit" class="submit-btn">Save</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

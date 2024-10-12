@@ -1,0 +1,96 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/head :: head" />
+
+<body>
+    <div th:replace="commons/header-nav::navbar" />
+
+    <div th:replace="commons/side-bar::sidebar" />
+
+    <div class="container">
+        <!--Product contents-->
+        <div class="content">
+            <form action="#" th:action="@{/products}" method="get">
+                <input type="text" name="keyword" placeholder="Search product" th:value="${keyword}">
+            </form>
+            <div class="button-group">
+                <a href="/products/new" class="btn btn-green"><i class="fas fa-circle-plus"> </i>Add New Product</a>
+                <a href="/products/download-pdf" class="btn btn-light-gray"><i class="fas fa-file-pdf"> </i>Download
+                    PDF</a>
+            </div>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Photo</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${productPage.content}">
+                        <td th:text="${product.name}"></td>
+                        <td>
+                            <img th:src="@{/products/{id}/photo(id=${product.id})}" alt="Product photo"
+                                style="width: 100px; height: 100px;" />
+                        </td>
+                        <td th:text="${product.price}"></td>
+
+                        <td th:text="${product.category.name}"></td>
+                        <td>
+                            <a class="btn btn-yellow" th:href="@{/products/edit/{id}(id=${product.id})}"><i
+                                    class="fas fa-edit  xs"></i></a>
+                            <a class="btn btn-red" th:href="@{/products/delete/{id}(id=${product.id})}"><i
+                                    class="fas fa-trash-can xs"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="button-group">
+
+                <span>Page <span th:text="${currentPage}"></span> of <span th:text="${totalPages}"></span></span>
+                <span th:if="${keyword != null && !keyword.isEmpty()}">
+                   
+            </div>
+            <ul class="pagination">
+
+                <!-- Pagination Links -->
+                <div>
+                    <!-- First Page Link -->
+                    <a class="btn btn-light-gray" th:href="@{/products(page=1, size=${pageSize}, keyword=${keyword})}"
+                        th:if="${currentPage > 1}">First</a>
+
+                    <!-- Previous Page Link -->
+                    <a class="btn btn-light-gray"
+                        th:href="@{/products(page=${currentPage - 1}, size=${pageSize}, keyword=${keyword})}"
+                        th:if="${currentPage > 1}">Previous</a>
+
+                    <!-- Page Numbers -->
+                    <span th:each="pageNumber : ${pageNumbers}">
+                        <a class="btn btn-light-gray"
+                            th:href="@{/products(page=${pageNumber}, size=${pageSize}, keyword=${keyword})}"
+                            th:classappend="${pageNumber == currentPage} ">
+
+
+                            <span th:text="${pageNumber}"></span>
+                        </a>
+                    </span>
+
+                    <!-- Next Page Link -->
+                    <a class="btn btn-light-gray"
+                        th:href="@{/products(page=${currentPage + 1}, size=${pageSize}, keyword=${keyword})}"
+                        th:if="${currentPage < totalPages}">Next</a>
+
+                    <!-- Last Page Link -->
+                    <a class="btn btn-light-gray"
+                        th:href="@{/products(page=${totalPages}, size=${pageSize}, keyword=${keyword})}"
+                        th:if="${currentPage < totalPages}">Last</a>
+                </div>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
