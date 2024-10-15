@@ -3,7 +3,7 @@ Projects Features
   2. Crud operations
   3. Product and category relationship
   4. Print list products
-  5. Numbers formatt
+  5. Numbers format
   6. Order by products
   7. Add and Update photo of the products (blob)
 
