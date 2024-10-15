@@ -79,6 +79,10 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    public void delete(Long id) {
+        productRepository.deleteById(id);
+    }
+
     public Page<Product> findPaginatedAndSearched(int pageNo, int pageSize, String keyword) {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);  // Page number starts from 0
         if (keyword != null && !keyword.isEmpty()) {
